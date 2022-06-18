@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Text, View, StyleSheet, Alert } from "react-native";
-import {Ionicons} from '@expo/vector-icons';
+import { Ionicons } from "@expo/vector-icons";
 
 import NumberContainer from "../components/game/NumberContainer";
 import PrimaryButton from "../components/ui/PrimaryButton";
@@ -30,6 +30,11 @@ function GameScreen({ userNumber, onGameOver }) {
       onGameOver();
     }
   }, [currentGuess, userNumber, onGameOver]);
+
+  useEffect(() => {
+    minBoundary = 1;
+    maxBoundary = 100;
+  }, []);
 
   function nextGuessHandler(direction) {
     if (
@@ -71,7 +76,7 @@ function GameScreen({ userNumber, onGameOver }) {
           </View>
           <View style={styles.buttonContainer}>
             <PrimaryButton onPress={nextGuessHandler.bind(this, "greater")}>
-            <Ionicons name="md-add" size={24} color="white" />
+              <Ionicons name="md-add" size={24} color="white" />
             </PrimaryButton>
           </View>
         </View>

@@ -10,7 +10,7 @@ import {
 
 import PrimaryButton from "../components/ui/PrimaryButton";
 import Title from "../components/ui/Title";
-import Colors from "../constants/colors";
+import Colors from "../constants/colors.android";
 
 function GameOverScreen({ roundNumber, userNumber, onStartNewGame }) {
   const { width, height } = useWindowDimensions();

@@ -1,27 +1,54 @@
-import { Text, View, Image, StyleSheet, Dimensions } from "react-native";
-import PrimaryButton from "../components/ui/PrimaryButton";
+import {
+  Text,
+  View,
+  Image,
+  StyleSheet,
+  Dimensions,
+  useWindowDimensions,
+  ScrollView,
+} from "react-native";
 
+import PrimaryButton from "../components/ui/PrimaryButton";
 import Title from "../components/ui/Title";
 import Colors from "../constants/colors";
 
 function GameOverScreen({ roundNumber, userNumber, onStartNewGame }) {
-  return (
-    <View style={styles.rootContainer}>
-      <Title>GAME OVER</Title>
-      <View style={styles.imageContainer}>
-        <Image
-          style={styles.image}
-          source={require("../assets/images/success.png")}
-        />
-      </View>
-      <Text style={styles.summeryText}>
-        Your phone needed <Text style={styles.highlight}>{roundNumber}</Text>{" "}
-        rounds to guess the number{" "}
-        <Text style={styles.highlight}>{userNumber}</Text>
-      </Text>
+  const { width, height } = useWindowDimensions();
 
-      <PrimaryButton onPress={onStartNewGame}> Start New Game</PrimaryButton>
-    </View>
+  let imageSize = 300;
+
+  if (width < 380) {
+    imageSize = 150;
+  }
+
+  if (height < 400) {
+    imageSize = 80;
+  }
+
+  const imageStyle = {
+    width: imageSize,
+    height: imageSize,
+    BroadcastChannel: imageSize / 2,
+  };
+  return (
+    <ScrollView style={styles.screen}>
+      <View style={styles.rootContainer}>
+        <Title>GAME OVER</Title>
+        <View style={[styles.imageContainer, imageStyle]}>
+          <Image
+            style={styles.image}
+            source={require("../assets/images/success.png")}
+          />
+        </View>
+        <Text style={styles.summeryText}>
+          Your phone needed <Text style={styles.highlight}>{roundNumber}</Text>{" "}
+          rounds to guess the number{" "}
+          <Text style={styles.highlight}>{userNumber}</Text>
+        </Text>
+
+        <PrimaryButton onPress={onStartNewGame}> Start New Game</PrimaryButton>
+      </View>
+    </ScrollView>
   );
 }
 
@@ -58,5 +85,8 @@ const styles = StyleSheet.create({
   highlight: {
     fontFamily: "open-sans-bold",
     color: Colors.primary500,
+  },
+  screen: {
+    flex: 1,
   },
 });
